@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\RubyController1.cs" />
+    <Compile Include="Assets\Scripts\HPCol.cs" />
+    <Compile Include="Assets\Scripts\DmgZone.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\2DBeginner_Third-PartyNotice.txt" />
