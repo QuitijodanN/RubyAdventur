@@ -7,14 +7,15 @@ public class EnemyController : MonoBehaviour
     public float speed = 3.0f;
     public bool vertical;
     public float changeTime = 3.0f;
-    Animator animator;
+    bool broken = true;
+
+    public ParticleSystem smokeEffect;
 
     Rigidbody2D rigidbody2D;
     float timer;
     int direction = 1;
-    bool broken = true;
 
-    public ParticleSystem smokeEffect;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,6 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //remember ! inverse the test, so if broken is true !broken will be false and return won’t be executed.
         if (!broken)
         {
             return;
@@ -47,14 +47,16 @@ public class EnemyController : MonoBehaviour
         if (vertical)
         {
             position.y = position.y + Time.deltaTime * speed * direction;
-            animator.SetFloat("MoveX", 0);
-            animator.SetFloat("MoveY", direction);
+
+            animator.SetFloat("Move X", 0);
+            animator.SetFloat("Move Y", direction);
         }
         else
         {
             position.x = position.x + Time.deltaTime * speed * direction;
-            animator.SetFloat("MoveX", direction);
-            animator.SetFloat("MoveY", 0);
+
+            animator.SetFloat("Move X", direction);
+            animator.SetFloat("Move Y", 0);
         }
 
         rigidbody2D.MovePosition(position);
@@ -62,7 +64,7 @@ public class EnemyController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        RubyController1 player = other.gameObject.GetComponent<RubyController1>();
+        RubyController player = other.gameObject.GetComponent<RubyController>();
 
         if (player != null)
         {
@@ -75,10 +77,7 @@ public class EnemyController : MonoBehaviour
     {
         broken = false;
         rigidbody2D.simulated = false;
-        //optional if you added the fixed animation
         animator.SetTrigger("Fixed");
-
         smokeEffect.Stop();
-        
     }
 }
